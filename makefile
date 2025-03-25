@@ -1,5 +1,5 @@
 OBJDIR=build
-OBJECTS= utils.o reduced_encoder.o encoder.o clause_cont.o cadical_clauses.o ladder_amk_encoder.o
+OBJECTS= utils.o reduced_encoder.o seq_encoder.o encoder.o clause_cont.o cadical_clauses.o ladder_amk_encoder.o
 OBJS = $(patsubst %.o,$(OBJDIR)/%.o,$(OBJECTS))
 
 SRCDIR=src
@@ -32,7 +32,7 @@ all : $(OBJDIR)/main.o
 $(OBJDIR)/main.o : main.cpp $(OBJS) $(SRCDIR)/ladder_amk_encoder.h
 	g++ $(FLAGS) $(STANDARD) -I$(CADICAL_INC) -c $< -o $@
 
-$(OBJDIR)/ladder_amk_encoder.o : $(SRCDIR)/ladder_amk_encoder.cpp $(SRCDIR)/ladder_amk_encoder.h $(SRCDIR)/reduced_encoder.h $(SRCDIR)/utils.h $(SRCDIR)/clause_cont.h $(SRCDIR)/cadical_clauses.h
+$(OBJDIR)/ladder_amk_encoder.o : $(SRCDIR)/ladder_amk_encoder.cpp $(SRCDIR)/ladder_amk_encoder.h $(SRCDIR)/reduced_encoder.h $(SRCDIR)/seq_encoder.h $(SRCDIR)/utils.h $(SRCDIR)/clause_cont.h $(SRCDIR)/cadical_clauses.h
 	g++ $(FLAGS) $(STANDARD) -I$(CADICAL_INC) -c $< -o $@
 
 # $(OBJDIR)/scl_encoder.o : $(SRCDIR)/scl_encoder.cpp $(SRCDIR)/scl_encoder.h $(SRCDIR)/encoder.h
@@ -53,10 +53,10 @@ $(OBJDIR)/ladder_amk_encoder.o : $(SRCDIR)/ladder_amk_encoder.cpp $(SRCDIR)/ladd
 $(OBJDIR)/reduced_encoder.o : $(SRCDIR)/reduced_encoder.cpp $(SRCDIR)/reduced_encoder.h $(SRCDIR)/encoder.h
 	g++ $(FLAGS) $(IGNORE_ASSERTVARS) $(STANDARD) -c $< -o $@
 
-# $(OBJDIR)/naive_encoder.o : $(SRCDIR)/naive_encoder.cpp $(SRCDIR)/naive_encoder.h $(SRCDIR)/encoder.h $(SRCDIR)/bdd.h
-# 	g++ $(FLAGS) $(IGNORE_ASSERTVARS) $(STANDARD) -c $< -o $@
+$(OBJDIR)/seq_encoder.o : $(SRCDIR)/seq_encoder.cpp $(SRCDIR)/seq_encoder.h $(SRCDIR)/encoder.h
+	g++ $(FLAGS) $(IGNORE_ASSERTVARS) $(STANDARD) -c $< -o $@
 
-# $(OBJDIR)/seq_encoder.o : $(SRCDIR)/seq_encoder.cpp $(SRCDIR)/seq_encoder.h $(SRCDIR)/encoder.h $(SRCDIR)/bdd.h
+# $(OBJDIR)/naive_encoder.o : $(SRCDIR)/naive_encoder.cpp $(SRCDIR)/naive_encoder.h $(SRCDIR)/encoder.h $(SRCDIR)/bdd.h
 # 	g++ $(FLAGS) $(IGNORE_ASSERTVARS) $(STANDARD) -c $< -o $@
 
 $(OBJDIR)/cadical_clauses.o : $(SRCDIR)/cadical_clauses.cpp $(SRCDIR)/cadical_clauses.h $(SRCDIR)/clause_cont.h

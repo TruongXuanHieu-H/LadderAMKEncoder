@@ -112,7 +112,7 @@ namespace SINGLELADDERAMK
             break;
         case seq:
             std::cout << "c Initializing a SEQ encoder with n = " << n << "." << std::endl;
-            // enc = new SeqEncoder(cc, vh);
+            enc = new SeqEncoder(cc, vh);
             break;
         case BDD:
             std::cout << "c Initializing a BDD encoder with n = " << n << "." << std::endl;
