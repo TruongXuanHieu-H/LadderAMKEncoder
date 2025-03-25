@@ -17,41 +17,77 @@ namespace SINGLELADDERAMK
 
     ReducedEncoder::~ReducedEncoder() {};
 
-    void ReducedEncoder::encode_and_solve_ladder_amo(int n, int w, int initCondLength, int initCond[])
+    void ReducedEncoder::encode_and_solve_ladder_amk(int n, int w, int at_most, int initCondLength, int initCond[])
     {
-        std::cout << "start reduced" << std::endl;
-
         std::deque<int> first_item(w);
         std::iota(first_item.begin(), first_item.end(), 1);
-        encode_first_amo(first_item.begin(), first_item.end());
+        encode_first_amk(first_item.begin(), first_item.end(), at_most);
 
         for (int i = 1; i <= n - w; i++)
         {
             std::deque<int> items(w);
             std::iota(items.begin(), items.end(), i);
-            encode_amo(items.begin(), items.end(), items.back() + 1);
+            encode_amk(items.begin(), items.end(), items.back() + 1, at_most);
         }
 
         (void)initCondLength;
         (void)initCond;
     }
 
-    void ReducedEncoder::encode_first_amo(deq_int_it it_begin, deq_int_it it_end)
+    void ReducedEncoder::encode_first_amk(deq_int_it it_begin, deq_int_it it_end, int at_most)
     {
-        for (auto i_pos = it_begin; i_pos != it_end; ++i_pos)
+        std::vector<int> literals(it_begin, it_end); // Vector with w literals
+        if ((int)literals.size() <= at_most)         // If w <= k then always true
+            return;
+
+        std::vector<bool> bitmask(at_most + 1, true);
+        bitmask.resize(literals.size(), false);
+
+        // std::cout << "First AMO: ";
+        // for (int i = 0; i < (int)literals.size(); i++)
+        // {
+        //     std::cout << literals[i] << " ";
+        // }
+        // std::cout << "\n";
+
+        do
         {
-            for (auto j_pos = std::next(i_pos); j_pos != it_end; ++j_pos)
+            std::vector<int> subset;
+            for (int i = 0; i < (int)literals.size(); ++i)
             {
-                cc->add_clause({-1 * (*i_pos), -1 * (*j_pos)});
+                if (bitmask[i])
+                    subset.push_back(-literals[i]);
             }
-        }
+            cc->add_clause(subset);
+        } while (std::prev_permutation(bitmask.begin(), bitmask.end()));
     }
 
-    void ReducedEncoder::encode_amo(deq_int_it it_begin, deq_int_it it_end, int new_g)
+    void ReducedEncoder::encode_amk(deq_int_it it_begin, deq_int_it it_end, int new_g, int at_most)
     {
-        for (auto i_pos = std::next(it_begin); i_pos != it_end; ++i_pos)
+        std::vector<int> literals(std::next(it_begin), it_end); // Vector with w - 1 literals
+        if ((int)literals.size() <= at_most - 1)                // If w - 1 <= k - 1 then always true
+            return;
+
+        std::vector<bool> bitmask(at_most, true);
+        bitmask.resize(literals.size(), false);
+
+        // std::cout << "Next AMO: ";
+        // for (int i = 0; i < (int)literals.size(); i++)
+        // {
+        //     std::cout << literals[i] << " ";
+        // }
+        // std::cout << new_g << "\n";
+
+        do
         {
-            cc->add_clause({-1 * (*i_pos), -1 * new_g});
-        }
+            std::vector<int> subset;
+            for (int i = 0; i < (int)literals.size(); ++i)
+            {
+                if (bitmask[i])
+                    subset.push_back(-literals[i]);
+            }
+            subset.push_back(-1 * new_g);
+            cc->add_clause(subset);
+        } while (std::prev_permutation(bitmask.begin(), bitmask.end()));
     };
 }

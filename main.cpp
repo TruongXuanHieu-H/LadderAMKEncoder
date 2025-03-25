@@ -1,8 +1,9 @@
 #include <iostream>
 #include <signal.h>
 #include <iomanip>
+#include <map>
 
-#include "src/ladder_amo_encoder.h"
+#include "src/ladder_amk_encoder.h"
 
 using namespace SINGLELADDERAMK;
 

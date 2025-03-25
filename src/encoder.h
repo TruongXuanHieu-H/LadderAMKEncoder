@@ -16,12 +16,12 @@ namespace SINGLELADDERAMK
 
         bool is_debug_mode = false;
 
-        virtual void encode_and_solve_ladder_amo(int n, int w, int initCondLength, int initCond[]) = 0;
+        virtual void encode_and_solve_ladder_amk(int n, int w, int at_most, int initCondLength, int initCond[]) = 0;
 
         ClauseContainer *cc;
         VarHandler *vh;
 
-        void encode_ladder_amo(int n, int w);
+        void encode_ladder_amk(int n, int w, int at_most);
     };
 }
 
