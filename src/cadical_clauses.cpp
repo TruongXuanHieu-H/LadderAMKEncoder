@@ -19,11 +19,11 @@ namespace SINGLELADDERAMK
         for (int lit : c)
         {
             cad_solver->add(lit);
-            std::cout << lit << " ";
+            // std::cout << lit << " ";
         }
 
         cad_solver->add(0);
-        std::cout << "0" << std::endl;
+        // std::cout << "0" << std::endl;
         clause_counter += 1;
     };
 

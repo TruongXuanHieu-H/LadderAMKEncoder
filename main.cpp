@@ -35,13 +35,10 @@ static void SIGINT_exit(int signum)
 
 static const std::map<std::string, std::string> option_list = {
     {"--help", "Print usage message with all possible options"},
-    {"--naive", "Use naive encoding for ladder AMO constraints"},
     {"--reduced", "Use reduced naive encoding for ladder AMO constraints"},
     {"--seq", "Use sequential encoding for ladder AMO constraints"},
     {"--BDD", "Use BDD encoding for ladder AMO constraints (use pblib)"},
-    {"--product", "Use 2-Product encoding for ladder AMO constraints"},
     {"--card", "Use cardinality network encoding for ladder AMO constraints (use pblib)"},
-    {"--duplex", "Use duplex encoding for ladder AMO constraints"},
     {"--scl", "Use scl encoding for ladder AMO constraints"},
     {"--check-solution", "Calculate the antibandwidth of the found SAT solution and compare it to the actual width [default: false]"},
     {"-set-at-most <new k>", "Set the at-most value for AMK constraint, has to be positive [default: 2, min: 1]"},
@@ -121,10 +118,6 @@ int main(int argc, char **argv)
             delete ladder_amo_enc;
             return 1;
         }
-        else if (argv[i] == std::string("--naive"))
-        {
-            ladder_amo_enc->enc_choice = EncodeType::naive;
-        }
         else if (argv[i] == std::string("--reduced"))
         {
             ladder_amo_enc->enc_choice = EncodeType::reduced;
@@ -137,21 +130,13 @@ int main(int argc, char **argv)
         {
             ladder_amo_enc->enc_choice = EncodeType::BDD;
         }
-        else if (argv[i] == std::string("--product"))
+        else if (argv[i] == std::string("--card"))
         {
-            ladder_amo_enc->enc_choice = EncodeType::product;
-        }
-        else if (argv[i] == std::string("--duplex"))
-        {
-            ladder_amo_enc->enc_choice = EncodeType::duplex;
+            ladder_amo_enc->enc_choice = EncodeType::card;
         }
         else if (argv[i] == std::string("--scl"))
         {
             ladder_amo_enc->enc_choice = EncodeType::scl;
-        }
-        else if (argv[i] == std::string("--card"))
-        {
-            ladder_amo_enc->enc_choice = EncodeType::card;
         }
         else if (argv[i] == std::string("--check-solution"))
         {

@@ -9,31 +9,26 @@
 #include "seq_encoder.h"
 #include "bdd_encoder.h"
 #include "card_encoder.h"
+#include "scl_encoder.h"
 #include <unordered_map>
 
 namespace SINGLELADDERAMK
 {
     enum EncodeType
     {
-        naive,
         reduced,
         seq,
         BDD,
-        product,
-        duplex,
-        scl,
         card,
+        scl,
     };
 
     const std::unordered_map<EncodeType, std::string> encode_type_map = {
-        {naive, "naive"},
         {reduced, "reduced"},
         {seq, "seq"},
         {BDD, "BDD"},
-        {product, "product"},
-        {duplex, "duplex"},
-        {scl, "scl"},
         {card, "card"},
+        {scl, "scl"},
     };
 
     class LadderAMKEncoder

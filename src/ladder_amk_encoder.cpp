@@ -102,10 +102,6 @@ namespace SINGLELADDERAMK
 
         switch (enc_choice)
         {
-        case naive:
-            std::cout << "c Initializing a NAIVE encoder with n = " << n << "." << std::endl;
-            // enc = new NaiveEncoder(cc, vh);
-            break;
         case reduced:
             std::cout << "c Initializing a REDUCED encoder with n = " << n << "." << std::endl;
             enc = new ReducedEncoder(cc, vh);
@@ -118,21 +114,13 @@ namespace SINGLELADDERAMK
             std::cout << "c Initializing a BDD encoder with n = " << n << "." << std::endl;
             enc = new BDDEncoder(cc, vh);
             break;
-        case product:
-            std::cout << "c Initializing a Product encoder with n = " << n << "." << std::endl;
-            // enc = new ProductEncoder(cc, vh);
-            break;
-        case duplex:
-            std::cout << "c Initializing a Duplex encoder with n = " << n << "." << std::endl;
-            // enc = new DuplexEncoder(cc, vh);
-            break;
-        case scl:
-            std::cout << "c Initializing a Ladder encoder with n = " << n << "." << std::endl;
-            // enc = new SCLEncoder(cc, vh);
-            break;
         case card:
             std::cout << "c Initializing a Cardinality network encoder with n = " << n << "." << std::endl;
             enc = new CardinalityEncoder(cc, vh);
+            break;
+        case scl:
+            std::cout << "c Initializing a Ladder encoder with n = " << n << "." << std::endl;
+            enc = new SCLEncoder(cc, vh);
             break;
         default:
             std::cout << "c Initializing a null encoder with n = " << n << "." << std::endl;
