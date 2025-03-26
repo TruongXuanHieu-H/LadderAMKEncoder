@@ -1,1 +1,1 @@
-# StaircaseEncoderSCL
+# Ladder AMK Encoder
