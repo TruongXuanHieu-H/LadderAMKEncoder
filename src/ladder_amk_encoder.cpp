@@ -132,7 +132,7 @@ namespace SINGLELADDERAMK
             break;
         case card:
             std::cout << "c Initializing a Cardinality network encoder with n = " << n << "." << std::endl;
-            // enc = new CardinalityEncoder(cc, vh);
+            enc = new CardinalityEncoder(cc, vh);
             break;
         default:
             std::cout << "c Initializing a null encoder with n = " << n << "." << std::endl;

@@ -8,6 +8,7 @@
 #include "reduced_encoder.h"
 #include "seq_encoder.h"
 #include "bdd_encoder.h"
+#include "card_encoder.h"
 #include <unordered_map>
 
 namespace SINGLELADDERAMK
