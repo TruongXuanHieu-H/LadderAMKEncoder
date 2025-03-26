@@ -7,6 +7,7 @@
 #include "cadical_clauses.h"
 #include "reduced_encoder.h"
 #include "seq_encoder.h"
+#include "bdd_encoder.h"
 #include <unordered_map>
 
 namespace SINGLELADDERAMK

@@ -116,7 +116,7 @@ namespace SINGLELADDERAMK
             break;
         case BDD:
             std::cout << "c Initializing a BDD encoder with n = " << n << "." << std::endl;
-            // enc = new BDDEncoder(cc, vh);
+            enc = new BDDEncoder(cc, vh);
             break;
         case product:
             std::cout << "c Initializing a Product encoder with n = " << n << "." << std::endl;
