@@ -1,17 +1,18 @@
 import sys
-from pypblib import pblib
+from pysat.card import CardEnc, EncType
 
-def encode_amk(w, first_literals, first_free_var, at_most):
-    # print("# Encode w = " + str(w) + ", first = " + str(first_literals) + ", first_free = " + str(first_free_var) + ", at_most = " + str(at_most) + ".")
-    pb2 = pblib.Pb2cnf()
-    config = pblib.PBConfig()
-    config.set_AMK_Encoder(pblib.AMK_CARD)
+def encode_amk(literals, top_id, at_most):
+    cnf = CardEnc.atmost(lits=literals, top_id=top_id, bound=at_most, encoding=EncType.cardnetwrk)
     
-    literals = list(range(first_literals, first_literals + w))
-    formula = []
-    max_var = pb2.encode_at_most_k(literals, at_most, formula, first_free_var)
-    
-    return formula, max_var
+    all_literals = set()
+    for clause in cnf.clauses:
+        for lit in clause:
+            all_literals.add(abs(lit))
+
+    original_literals = set(literals)
+    aux_vars = all_literals - original_literals
+
+    return cnf, top_id + len(aux_vars)
 
 def main():
     if len(sys.argv) != 4:
@@ -26,13 +27,13 @@ def main():
         print("Error: All arguments must be integers.")
         sys.exit(1)
 
-    first_free_var = n + 1
+    top_id = n
     formula = []
     
     for i in range (1, n - w + 2):
-        add_formula, new_max_var = encode_amk(w, i, first_free_var, k)
+        literals = list(range(i, i + w))
+        add_formula, top_id = encode_amk(literals, top_id, k)
         formula.append(add_formula)
-        first_free_var = new_max_var + 1
 
     for amk in formula:
         # print(amk)

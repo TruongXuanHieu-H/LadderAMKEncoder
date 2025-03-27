@@ -1,13 +1,11 @@
 import sys
 from pypblib import pblib
 
-def encode_amk(w, first_literals, first_free_var, at_most):
-    # print("# Encode w = " + str(w) + ", first = " + str(first_literals) + ", first_free = " + str(first_free_var) + ", at_most = " + str(at_most) + ".")
+def encode_amk(literals, first_free_var, at_most):
     pb2 = pblib.Pb2cnf()
     config = pblib.PBConfig()
     config.set_AMK_Encoder(pblib.AMK_BDD)
     
-    literals = list(range(first_literals, first_literals + w))
     formula = []
     max_var = pb2.encode_at_most_k(literals, at_most, formula, first_free_var)
     
@@ -30,7 +28,8 @@ def main():
     formula = []
     
     for i in range (1, n - w + 2):
-        add_formula, new_max_var = encode_amk(w, i, first_free_var, k)
+        literals = list(range(i, i + w))
+        add_formula, new_max_var = encode_amk(literals, first_free_var, k)
         formula.append(add_formula)
         first_free_var = new_max_var + 1
 
