@@ -2,9 +2,9 @@
 
 n_values=$(seq 100 100 5000)
 
-encoders=(--reduced --seq --BDD --card --scl)
+encoders=(--scl)
 
-w_values=(10 20 50)
+w_values=(10 20 50 100)
 
 # Timeout (600 seconds per command)
 timeout_duration=600

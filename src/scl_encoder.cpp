@@ -115,6 +115,27 @@ namespace SINGLELADDERAMK
             }
 
             { // Formula 5
+                for (int j = 2; j <= at_most; j++)
+                {
+                    int var = window * w + w + 1 - j;
+                    int main = get_aux_var(var, lastVar, j);
+                    cc->add_clause({var, -main});
+                }
+            }
+
+            { // Formula 6
+                for (int j = 2; j <= w - 1; j++)
+                {
+                    int var = window * w + w + 1 - j;
+                    int upper_s = j < at_most ? j : at_most;
+                    for (int s = 2; s <= upper_s; s++)
+                    {
+                        cc->add_clause({get_aux_var(var + 1, lastVar, s - 1), -get_aux_var(var, lastVar, s)});
+                    }
+                }
+            }
+
+            { // Formula 8
                 for (int j = at_most + 1; j <= w; j++)
                 {
                     int var = window * w + w + 1 - j;
@@ -180,6 +201,28 @@ namespace SINGLELADDERAMK
                 }
 
                 { // Formula 5
+                    int real_at_most = at_most < real_w ? at_most : real_w;
+                    for (int j = 2; j <= real_at_most; j++)
+                    {
+                        int reverse_var = window * w + j;
+                        int main = get_aux_var(firstVar, reverse_var, j);
+                        cc->add_clause({reverse_var, -main});
+                    }
+                }
+
+                { // Formula 6
+                    for (int j = 2; j <= real_w; j++)
+                    {
+                        int reverse_var = window * w + j;
+                        int upper_s = j < at_most ? j : at_most;
+                        for (int s = 2; s <= upper_s; s++)
+                        {
+                            cc->add_clause({get_aux_var(firstVar, reverse_var - 1, s - 1), -get_aux_var(firstVar, reverse_var, s)});
+                        }
+                    }
+                }
+
+                { // Formula 8
                     for (int i = at_most + 1; i <= real_w; i++)
                     {
                         int reverse_var = window * w + i;
@@ -239,6 +282,27 @@ namespace SINGLELADDERAMK
                 }
 
                 { // Formula 5
+                    for (int j = 2; j <= at_most; j++)
+                    {
+                        int reverse_var = window * w + j;
+                        int main = get_aux_var(firstVar, reverse_var, j);
+                        cc->add_clause({reverse_var, -main});
+                    }
+                }
+
+                { // Formula 6
+                    for (int j = 2; j <= w - 1; j++)
+                    {
+                        int reverse_var = window * w + j;
+                        int upper_s = j < at_most ? j : at_most;
+                        for (int s = 2; s <= upper_s; s++)
+                        {
+                            cc->add_clause({get_aux_var(firstVar, reverse_var - 1, s - 1), -get_aux_var(firstVar, reverse_var, s)});
+                        }
+                    }
+                }
+
+                { // Formula 8
                     for (int i = at_most + 1; i <= w; i++)
                     {
                         int reverse_var = window * w + i;
@@ -303,6 +367,27 @@ namespace SINGLELADDERAMK
             }
 
             { // Formula 5
+                for (int j = 2; j <= at_most; j++)
+                {
+                    int reverse_var = window * w + j;
+                    int main = get_aux_var(firstVar, reverse_var, j);
+                    cc->add_clause({reverse_var, -main});
+                }
+            }
+
+            { // Formula 6
+                for (int j = 2; j <= w - 1; j++)
+                {
+                    int reverse_var = window * w + j;
+                    int upper_s = j < at_most ? j : at_most;
+                    for (int s = 2; s <= upper_s; s++)
+                    {
+                        cc->add_clause({get_aux_var(firstVar, reverse_var - 1, s - 1), -get_aux_var(firstVar, reverse_var, s)});
+                    }
+                }
+            }
+
+            { // Formula 8
                 for (int i = at_most + 1; i <= w; i++)
                 {
                     int reverse_var = window * w + i;
@@ -361,7 +446,28 @@ namespace SINGLELADDERAMK
                 }
             }
 
-            // { // Formula 5
+            { // Formula 5
+                for (int j = 2; j <= at_most; j++)
+                {
+                    int var = window * w + w + 1 - j;
+                    int main = get_aux_var(var, lastVar, j);
+                    cc->add_clause({var, -main});
+                }
+            }
+
+            { // Formula 6
+                for (int j = 2; j <= w - 1; j++)
+                {
+                    int var = window * w + w + 1 - j;
+                    int upper_s = j < at_most ? j : at_most;
+                    for (int s = 2; s <= upper_s; s++)
+                    {
+                        cc->add_clause({get_aux_var(var + 1, lastVar, s - 1), -get_aux_var(var, lastVar, s)});
+                    }
+                }
+            }
+
+            // { // Formula 8
             //     for (int j = at_most + 1; j <= w; j++)
             //     {
             //         int var = window * w + w + 1 - j;
@@ -425,6 +531,7 @@ namespace SINGLELADDERAMK
         }
         else
         {
+            // int connect_clause_count = 0;
             for (int i = 1; i <= w; i++)
             {
                 int left_first_var = window * w + i + 1;
@@ -445,8 +552,13 @@ namespace SINGLELADDERAMK
                     int var_left = get_aux_var(left_first_var, left_last_var, bound_left);
                     int var_right = get_aux_var(right_first_var, right_last_var, bound_right);
                     cc->add_clause({-var_left, -var_right});
+                    // connect_clause_count++;
                 }
             }
+            // std::cout << "Connect clause count: " << connect_clause_count << "\n";
+            // int connect_clause_estimate = at_most * (w - at_most);
+            // std::cout << "Connect clause estimate: " << connect_clause_estimate << "\n";
+            // assert(connect_clause_count == connect_clause_estimate);
         }
     }
 }
