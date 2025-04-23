@@ -16,7 +16,7 @@ def parse_file(filename, w_target, k_target):
                 n, w, k, time = map(int, match.groups())
                 if w == w_target and k == k_target:
                     x.append(n)
-                    y.append(time)
+                    y.append(time / 1000000)
     return x, y
 
 
@@ -39,13 +39,18 @@ x5, y5 = parse_file(filename5, w_target, k_target)
 
 
 # Plot the data
-plt.plot(x1, y1, linestyle='-.', color='purple', label="BDD", linewidth=2)
-plt.plot(x2, y2, linestyle=':', color='green', label="Card", linewidth=2)
-plt.plot(x3, y3, linestyle=':', color='blue', label="Pairwise", linewidth=2)
-plt.plot(x4, y4, linestyle='-', color='black', label="SCL", linewidth=2)
-plt.plot(x5, y5, linestyle='--', color='orange', label="Seq", linewidth=2)
+if len(x1) > 0:
+    plt.plot(x1, y1, linestyle='-.', color='purple', label="BDD", linewidth=2)
+if len(x2) > 0:
+    plt.plot(x2, y2, linestyle=':', color='green', label="Card", linewidth=2)
+if len(x3) > 0:
+    plt.plot(x3, y3, linestyle=':', color='blue', label="Pairwise", linewidth=2)
+if len(x4) > 0:
+    plt.plot(x4, y4, linestyle='-', color='black', label="SCL", linewidth=2)
+if len(x5) > 0:
+    plt.plot(x5, y5, linestyle='--', color='orange', label="Seq", linewidth=2)
 plt.legend()
-plt.xlabel('#Number variables')
+plt.xlabel('#Number of variables (n)')
 plt.ylabel('#Time (ms)')
 plt.grid(True)
 plt.tight_layout()
