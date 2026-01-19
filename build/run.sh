@@ -2,7 +2,7 @@
 
 n_values=$(seq 100 100 5000)
 
-encoders=(--scl)
+encoders=(--reduced --seq --BDD --card --scl)
 
 w_values=(10 20 50 100)
 
