@@ -14,6 +14,7 @@ namespace SINGLELADDERAMK
     int get_new_var();
     int last_var() const;
     int size() const;
+    void set_next_to_assign(int next_id);
 
   private:
     int first_assigned_id;
