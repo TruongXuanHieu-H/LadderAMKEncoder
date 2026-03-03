@@ -48,7 +48,7 @@ static const std::map<std::string, std::string> option_list = {
 
 void print_usage()
 {
-    std::cout << "usage: ladder_amo_enc number_of_elements [ <option> ... ] " << std::endl;
+    std::cout << "usage: ladder_amk_enc number_of_elements [ <option> ... ] " << std::endl;
     std::cout << "where '<option>' is one of the following options:" << std::endl;
     std::cout << std::endl;
     for (auto option : option_list)
@@ -137,6 +137,10 @@ int main(int argc, char **argv)
         else if (argv[i] == std::string("--scl"))
         {
             ladder_amo_enc->enc_choice = EncodeType::scl;
+        }
+        else if (argv[i] == std::string("--adder-network"))
+        {
+            ladder_amo_enc->enc_choice = EncodeType::adder_network;
         }
         else if (argv[i] == std::string("--check-solution"))
         {
