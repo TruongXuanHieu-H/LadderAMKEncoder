@@ -22,7 +22,7 @@ namespace SINGLELADDERAMK
         BDD,
         card,
         scl,
-        adder_network,
+        adder,
     };
 
     const std::unordered_map<EncodeType, std::string> encode_type_map = {
@@ -31,7 +31,7 @@ namespace SINGLELADDERAMK
         {BDD, "BDD"},
         {card, "card"},
         {scl, "scl"},
-        {adder_network, "adder_network"},
+        {adder, "adder"},
     };
 
     class LadderAMKEncoder

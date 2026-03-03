@@ -138,9 +138,9 @@ int main(int argc, char **argv)
         {
             ladder_amo_enc->enc_choice = EncodeType::scl;
         }
-        else if (argv[i] == std::string("--adder-network"))
+        else if (argv[i] == std::string("--adder"))
         {
-            ladder_amo_enc->enc_choice = EncodeType::adder_network;
+            ladder_amo_enc->enc_choice = EncodeType::adder;
         }
         else if (argv[i] == std::string("--check-solution"))
         {
