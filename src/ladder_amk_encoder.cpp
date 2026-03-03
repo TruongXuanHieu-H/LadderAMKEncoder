@@ -122,6 +122,10 @@ namespace SINGLELADDERAMK
             std::cout << "c Initializing a Ladder encoder with n = " << n << "." << std::endl;
             enc = new SCLEncoder(cc, vh);
             break;
+        case adder_network:
+            std::cout << "c Initializing an Adder network encoder with n = " << n << "." << std::endl;
+            enc = new AdderEncoder(cc, vh);
+            break;
         default:
             std::cout << "c Initializing a null encoder with n = " << n << "." << std::endl;
             break;

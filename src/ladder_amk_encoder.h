@@ -10,6 +10,7 @@
 #include "bdd_encoder.h"
 #include "card_encoder.h"
 #include "scl_encoder.h"
+#include "adder_encoder.h"
 #include <unordered_map>
 
 namespace SINGLELADDERAMK
@@ -21,6 +22,7 @@ namespace SINGLELADDERAMK
         BDD,
         card,
         scl,
+        adder_network,
     };
 
     const std::unordered_map<EncodeType, std::string> encode_type_map = {
@@ -29,6 +31,7 @@ namespace SINGLELADDERAMK
         {BDD, "BDD"},
         {card, "card"},
         {scl, "scl"},
+        {adder_network, "adder_network"},
     };
 
     class LadderAMKEncoder
@@ -60,7 +63,7 @@ namespace SINGLELADDERAMK
     protected:
         int n;
         VarHandler *vh;
-        Encoder *enc;
+        BaseEncoder *enc;
         ClauseContainer *cc;
         CaDiCaL::Solver *solver;
 
