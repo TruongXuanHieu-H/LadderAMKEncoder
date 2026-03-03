@@ -68,8 +68,6 @@ all: $(TARGET)
 # ================================
 $(TARGET): $(OBJECTS)
 	@mkdir -p $(BINDIR)
-	cp $(SRCDIR)/card_ladder_amk.py $(BINDIR)
-	cp $(SRCDIR)/bdd_ladder_amk.py $(BINDIR)
 	$(CXX) $(CXXFLAGS) $^ -L$(CADICAL_LIB_DIR) $(CADICAL_LIB) -L$(PBLIB_LIB_DIR) $(PBLIB_LIB) -o $@
 
 # ================================

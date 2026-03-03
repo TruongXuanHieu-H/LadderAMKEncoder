@@ -1,15 +1,9 @@
 #include "card_encoder.h"
 
-#include <numeric>   //iota
-#include <algorithm> //generate
-#include <cmath>     //floor,ceil
-#include <deque>
-#include <assert.h>
-#include <iostream>
-#include <iterator>
-#include <sstream>
-#include <vector>
-#include <regex>
+#include "pblib/pb2cnf.h"
+#include "pblib/pbconstraint.h"
+#include "pblib/PBConfig.h"
+#include <numeric>
 
 namespace SINGLELADDERAMK
 {
@@ -22,40 +16,22 @@ namespace SINGLELADDERAMK
 
     void CardinalityEncoder::encode_and_solve_ladder_amk(int n, int w, int at_most, int initCondLength, int initCond[])
     {
-        std::string command = "python3 card_ladder_amk.py " + std::to_string(n) + " " + std::to_string(w) + " " + std::to_string(at_most);
+        PBConfig config = std::make_shared<PBConfigClass>();
+        config->amk_encoder = AMK_ENCODER::BDD;
+        PB2CNF pb2cnf(config);
 
-        FILE *pipe = popen(command.c_str(), "r");
-        assert(pipe);
-
-        char buffer[1024];
-        std::string result;
-
-        while (fgets(buffer, sizeof(buffer), pipe) != nullptr)
+        for (int i = 1; i <= n - w + 1; i++)
         {
-            result += buffer;
-        }
+            std::vector<int32_t> literals(w);
+            std::iota(literals.begin(), literals.end(), i);
 
-        pclose(pipe);
+            std::vector<std::vector<int32_t>> clauses;
 
-        std::stringstream ss(result);
-        std::string temp = "";
-        std::regex numberPattern(R"(-?\d+)");
+            int next_aux_var = pb2cnf.encodeAtMostK(literals, at_most, clauses, vh->get_new_var()) + 1;
 
-        while (std::getline(ss, temp))
-        {
-            std::sregex_iterator it_line(temp.begin(), temp.end(), numberPattern);
-            std::sregex_iterator end_line;
-            std::vector<int> literals;
-
-            while (it_line != end_line)
-            {
-                int literal = std::stoi(it_line->str());
-                if (literal == 0)
-                    break;
-                literals.push_back(literal);
-                it_line++;
-            }
-            cc->add_clause(literals);
+            vh->set_next_to_assign(next_aux_var);
+            for (const auto &clause : clauses)
+                cc->add_clause(clause);
         }
 
         (void)initCondLength;
