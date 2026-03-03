@@ -17,7 +17,7 @@ namespace SINGLELADDERAMK
     void CardinalityEncoder::encode_and_solve_ladder_amk(int n, int w, int at_most, int initCondLength, int initCond[])
     {
         PBConfig config = std::make_shared<PBConfigClass>();
-        config->amk_encoder = AMK_ENCODER::BDD;
+        config->amk_encoder = AMK_ENCODER::CARD;
         PB2CNF pb2cnf(config);
 
         for (int i = 1; i <= n - w + 1; i++)
