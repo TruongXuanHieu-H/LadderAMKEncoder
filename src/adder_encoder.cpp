@@ -19,7 +19,6 @@ namespace SINGLELADDERAMK
         PBConfig config = std::make_shared<PBConfigClass>();
         config->pb_encoder = PB_ENCODER::ADDER;
         PB2CNF pb2cnf(config);
-        int next_aux_var = n + 1;
 
         for (int i = 1; i <= n - w + 1; i++)
         {
@@ -30,10 +29,9 @@ namespace SINGLELADDERAMK
 
             std::vector<std::vector<int32_t>> clauses;
 
-            next_aux_var = pb2cnf.encodeLeq(weights, literals, at_most, clauses, next_aux_var) + 1;
+            int next_aux_var = pb2cnf.encodeLeq(weights, literals, at_most, clauses, vh->get_new_var()) + 1;
         
             vh->set_next_to_assign(next_aux_var);
-
             for (const auto &clause : clauses)
                 cc->add_clause(clause);
         }
