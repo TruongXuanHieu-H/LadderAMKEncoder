@@ -1,18 +1,18 @@
-#ifndef ENCODER_H
-#define ENCODER_H
+#ifndef BASE_ENCODER_H
+#define BASE_ENCODER_H
 
 #include "clause_cont.h"
 
 namespace SINGLELADDERAMK
 {
-    class Encoder
+    class BaseEncoder
     {
     public:
-        Encoder(ClauseContainer *clause_container, VarHandler *var_handler);
-        virtual ~Encoder();
+        BaseEncoder(ClauseContainer *clause_container, VarHandler *var_handler);
+        virtual ~BaseEncoder();
 
-        Encoder(Encoder const &) = delete;
-        Encoder &operator=(Encoder const &) = delete;
+        BaseEncoder(BaseEncoder const &) = delete;
+        BaseEncoder &operator=(BaseEncoder const &) = delete;
 
         bool is_debug_mode = false;
 

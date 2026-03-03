@@ -14,7 +14,7 @@
 namespace SINGLELADDERAMK
 {
 
-    CardinalityEncoder::CardinalityEncoder(ClauseContainer *clause_container, VarHandler *var_handler) : Encoder(clause_container, var_handler)
+    CardinalityEncoder::CardinalityEncoder(ClauseContainer *clause_container, VarHandler *var_handler) : BaseEncoder(clause_container, var_handler)
     {
     }
 

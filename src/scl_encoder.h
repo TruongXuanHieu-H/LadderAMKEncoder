@@ -6,7 +6,7 @@
 
 namespace SINGLELADDERAMK
 {
-  class SCLEncoder : public Encoder
+  class SCLEncoder : public BaseEncoder
   {
   public:
     SCLEncoder(ClauseContainer *clause_container, VarHandler *var_handler);

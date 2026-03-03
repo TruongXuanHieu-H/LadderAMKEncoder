@@ -7,7 +7,7 @@ namespace SINGLELADDERAMK
 {
     typedef std::vector<int>::iterator vec_int_it;
 
-    class BDDEncoder : public Encoder
+    class BDDEncoder : public BaseEncoder
     {
     public:
         BDDEncoder(ClauseContainer *cc, VarHandler *vh);

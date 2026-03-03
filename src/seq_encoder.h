@@ -9,7 +9,7 @@ namespace SINGLELADDERAMK
 {
     typedef std::deque<int>::iterator deq_int_it;
 
-    class SeqEncoder : public Encoder
+    class SeqEncoder : public BaseEncoder
     {
     public:
         SeqEncoder(ClauseContainer *cc, VarHandler *vh);
