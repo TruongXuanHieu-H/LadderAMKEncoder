@@ -22,6 +22,7 @@ def parse_file(filename, w_target, k_target):
 
 # File name
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+filename0 = os.path.join(parent_dir, "report/adder_report.txt")
 filename1 = os.path.join(parent_dir, "report/BDD_report.txt")
 filename2 = os.path.join(parent_dir, "report/card_report.txt")
 filename3 = os.path.join(parent_dir, "report/reduced_report.txt")
@@ -31,6 +32,7 @@ filename5 = os.path.join(parent_dir, "report/seq_report.txt")
 # Read data
 w_target = int(sys.argv[1])
 k_target = int(sys.argv[2])
+x0, y0 = parse_file(filename0, w_target, k_target)
 x1, y1 = parse_file(filename1, w_target, k_target)
 x2, y2 = parse_file(filename2, w_target, k_target)
 x3, y3 = parse_file(filename3, w_target, k_target)
@@ -39,6 +41,8 @@ x5, y5 = parse_file(filename5, w_target, k_target)
 
 
 # Plot the data
+if len(x0) > 0:
+    plt.plot(x0, y0, linestyle='--', color='teal', label="Adder", linewidth=2)
 if len(x1) > 0:
     plt.plot(x1, y1, linestyle='-.', color='purple', label="BDD", linewidth=2)
 if len(x2) > 0:
